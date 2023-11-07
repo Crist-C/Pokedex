@@ -1,6 +1,7 @@
 package com.ccastro.pokedexapp.presentation.screens.pokemons.list
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,9 +24,12 @@ class PokemonListViewModel @Inject constructor(
     @Named("PokemonUseCases")val pokemonUseCases: IPokemonUseCases
 ) : ViewModel() {
 
-    private val errorMessage = MutableLiveData<Message>()
-    private val pokemonList = MutableLiveData<List<Pokemon>>()
-    private val loading = MutableLiveData<Boolean>()
+    val errorMessage = MutableLiveData<Message>()
+    val _pokemonList = MutableLiveData<List<Pokemon>>()
+    val pokemonList: LiveData<List<Pokemon>>
+        get() = _pokemonList
+
+    val loading = MutableLiveData<Boolean>()
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.i(TAG, "Exception Handled: ${throwable.localizedMessage}")
@@ -41,10 +45,9 @@ class PokemonListViewModel @Inject constructor(
     private fun getAllPokemons() {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = pokemonUseCases.getPokemonList()
-            Log.i(TAG, "getAllPokemons: ${response.body()}")
             withContext(Dispatchers.Main){
                 if (response.isSuccessful) {
-                    pokemonList.postValue(response.body())
+                    _pokemonList.postValue(response.body())
                     loading.value = false
                 } else {
                   onError("Error: ${response.message()}")

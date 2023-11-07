@@ -12,7 +12,7 @@ fun PokemonListScreen(navHostController: NavHostController) {
     Scaffold (
         topBar = {},
         content = {
-                  PokemonListContent(navHostController)
+                  PokemonListContent(navHostController = navHostController)
         },
         bottomBar = {}
     )

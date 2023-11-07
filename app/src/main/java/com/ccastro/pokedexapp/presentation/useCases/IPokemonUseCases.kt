@@ -8,6 +8,8 @@ interface IPokemonUseCases {
 
     suspend fun getPokemonList(generationNumber: GenerationNumber = 1): Response<List<Pokemon>>
 
+    //suspend fun getPokemonListOneByOne(generationNumber: GenerationNumber = 1): Response<List<Pokemon>>
+
     suspend fun getPokemonSelected(): Response<Pokemon>
 
 }

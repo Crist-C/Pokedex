@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="default_image_description">image async</string>
+    <string name="url_default_pokemon_onlist_image">https://upcdn.io/kW15bmD/raw/pokeball_default_Image.png</string>
 </resources>

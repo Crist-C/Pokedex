@@ -1,6 +1,9 @@
 package com.ccastro.pokedexapp.data.repositories
 
+import android.util.Log
 import com.ccastro.pokedexapp.core.Constants
+import com.ccastro.pokedexapp.core.Constants.TAG
+import com.ccastro.pokedexapp.core.Constants.gson
 import com.ccastro.pokedexapp.data.apis.PokemonsDAO
 import com.ccastro.pokedexapp.presentation.screens.GenerationNumber
 import com.ccastro.pokedexapp.presentation.screens.PokemonId
@@ -24,10 +27,23 @@ class PokemonRepository @Inject constructor(
     }
 
     override suspend fun getPokemonByName(name: PokemonName): Response<Pokemon> {
-        TODO("Not yet implemented")
+        val pokemonReponse = pokemonDao.getPokemonDetail(name)
+        val pokemon = pokemonReponse.body()
+        Log.i(TAG, "getPokemonByName: ${pokemon?.name}")
+        return pokemonReponse
     }
 
     override suspend fun getPokemonList(generation: GenerationNumber): Response<List<Pokemon>> {
-        return pokemonDao.getGenerationList(generation)
+        val generationData = pokemonDao.getGenerationList(generation)
+        val pokemonsNames = generationData.body()?.getPokemonsNames()
+        val pokemonList : MutableList<Pokemon> = mutableListOf()
+
+        pokemonsNames?.forEach{ pokemonName ->
+            getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
+        }
+
+        return Response.success(pokemonList)
     }
+
+
 }
