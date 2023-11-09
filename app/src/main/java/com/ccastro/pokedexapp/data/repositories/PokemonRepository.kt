@@ -3,14 +3,12 @@ package com.ccastro.pokedexapp.data.repositories
 import android.util.Log
 import com.ccastro.pokedexapp.core.Constants
 import com.ccastro.pokedexapp.core.Constants.TAG
-import com.ccastro.pokedexapp.core.Constants.gson
 import com.ccastro.pokedexapp.data.apis.PokemonsDAO
+import com.ccastro.pokedexapp.domain.models.Pokemon
+import com.ccastro.pokedexapp.domain.repositories.IPokemonRepository
 import com.ccastro.pokedexapp.presentation.screens.GenerationNumber
 import com.ccastro.pokedexapp.presentation.screens.PokemonId
 import com.ccastro.pokedexapp.presentation.screens.PokemonName
-import com.ccastro.pokedexapp.domain.models.Pokemon
-import com.ccastro.pokedexapp.domain.repositories.IPokemonRepository
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named

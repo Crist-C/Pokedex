@@ -7,7 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.ccastro.pokedexapp.core.Constants
+import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.components.SearchingField
+import com.ccastro.pokedexapp.presentation.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -25,4 +28,10 @@ fun PokemonListScreen(navHostController: NavHostController) {
         },
         bottomBar = {}
     )
+}
+
+
+fun gotoDetail(pokemon: Pokemon, navHostController: NavHostController) {
+    Constants.pokemonChosed = pokemon
+    navHostController.navigate(AppScreens.PokemonDetail.route)
 }

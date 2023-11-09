@@ -1,4 +1,4 @@
-package com.ccastro.pokedexapp.presentation.components.Images
+package com.ccastro.pokedexapp.presentation.components.images
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

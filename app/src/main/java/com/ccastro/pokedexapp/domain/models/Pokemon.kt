@@ -3,6 +3,7 @@ package com.ccastro.pokedexapp.domain.models
 import com.ccastro.pokedexapp.domain.models.common.Ability
 import com.ccastro.pokedexapp.domain.models.common.Language
 import com.ccastro.pokedexapp.domain.models.common.VersionGroup
+import com.ccastro.pokedexapp.presentation.screens.ImageUrl
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -71,7 +72,31 @@ data class Sprites(
     @Expose @SerializedName("front_female") val frontFemale: String?,
     @Expose @SerializedName("front_shiny") val frontShiny: String?,
     @Expose @SerializedName("front_shiny_female") val frontShinyFemale: String?
-)
+){
+    private val imageNames = listOf(
+        "back_default","back_female","back_shiny","back_shiny_female",
+        "front_default","front_female","front_shiny","front_shiny_female",
+        )
+    fun getImageUrlList(): List<ImageUrl> {
+        return listOf(
+            backDefault?:"", backFemale?:"", backShiny?:"", backShinyFemale?:"",
+            frontDefault?:"", frontFemale?:"", frontShiny?:"", frontShinyFemale?:""
+        ).filter { it.isNotEmpty() }
+    }
+    fun getMaleImageUrlList(): List<ImageUrl> {
+        return listOf(
+            backFemale?:"", backShinyFemale?:"",
+            frontFemale?:"", frontShinyFemale?:""
+        )
+    }
+
+    fun getFemaleImageUrlList(): List<ImageUrl> {
+        return listOf(
+            backDefault?:"", backShiny?:"",
+            frontDefault?:"", frontShiny?:""
+        )
+    }
+}
 
 data class Form(
     @Expose @SerializedName("name") val name: String,

@@ -17,13 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.screens.pokemons.list.PokemonListViewModel
 
 @Composable
 fun ListPokemons(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    viewModel: PokemonListViewModel = hiltViewModel()
+    viewModel: PokemonListViewModel = hiltViewModel(),
+    onPokemonClick: (Pokemon) -> Unit = {}
 ) {
 
     val pokemons by viewModel.pokemonList.collectAsState()
@@ -50,7 +52,9 @@ fun ListPokemons(
             }
         } else {
             items(pokemons) { pokemon ->
-                PokemonBasicCard(pokemon = pokemon, modifier = Modifier.fillMaxWidth())
+                PokemonBasicCard(pokemon = pokemon, modifier = Modifier.fillMaxWidth()) {
+                    pokemon: Pokemon -> onPokemonClick(pokemon)
+                }
             }
         }
     }

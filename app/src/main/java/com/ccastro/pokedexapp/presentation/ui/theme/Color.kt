@@ -7,7 +7,7 @@ val Blue200 = Color(0xFF5A63FD)
 val GreenVariant40 = Color(0xFFFAFEF3)
 val Blue80 = Color(0xFF6068FC)
 
-
+val BlueVariant40 = Color(0xFF0909A2)
 
 val Green500 = Color(0xFF459A20)
 val BlueVariant700 = Color(0xFF090925)

@@ -6,7 +6,7 @@ import com.ccastro.pokedexapp.domain.models.Sprites
 
 object Constants {
     const val TAG: String = "APPLOG"
-    var pokemonChosed: Pokemon? = null
+    lateinit var pokemonChosed: Pokemon
     var pokemonDemo = PokemonDemo(
         name = "Pikachu",
         sprites = Sprites(

@@ -1,5 +1,6 @@
 package com.ccastro.pokedexapp.presentation.components.pokemons
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.ccastro.pokedexapp.domain.models.Pokemon
-import com.ccastro.pokedexapp.presentation.components.Images.AsyncImage
+import com.ccastro.pokedexapp.presentation.components.images.AsyncImage
 
 @Composable
-fun PokemonBasicCard(modifier: Modifier = Modifier, pokemon: Pokemon) {
+fun PokemonBasicCard(modifier: Modifier = Modifier, pokemon: Pokemon, onClick: (Pokemon) -> Unit = {}) {
 
     Surface (
         modifier = Modifier
-            .wrapContentSize(),
+            .wrapContentSize().clickable { onClick(pokemon) },
         shape = MaterialTheme.shapes.large,
         shadowElevation = 6.dp
     ) {

@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.components.LoadingScreen
 import com.ccastro.pokedexapp.presentation.components.pokemons.ListPokemons
 
@@ -21,7 +22,9 @@ fun PokemonListContent(
     if (loading) {
         LoadingScreen()
     } else{
-        ListPokemons(modifier, navHostController, viewModel)
+        ListPokemons(modifier, navHostController, viewModel) {pokemon: Pokemon ->
+            gotoDetail(pokemon = pokemon, navHostController = navHostController)
+        }
     }
 }
 
