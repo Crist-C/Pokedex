@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Pokedex</string>
     <string name="default_image_description">image async</string>
-    <string name="url_default_pokemon_onlist_image">https://upcdn.io/kW15bmD/raw/pokeball_default_Image.png</string>
+    <string name="url_default_pokemon_onlist_image">htatps://i.postimg.cc/B6pp2hRs/pokeball-default-Image.png</string>
+    <string name="mensaje_no_se_encontro_pokemon">Aún no existe el pokemon con ese nombre</string>
 </resources>

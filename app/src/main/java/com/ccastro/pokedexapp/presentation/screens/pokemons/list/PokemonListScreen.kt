@@ -1,18 +1,27 @@
 package com.ccastro.pokedexapp.presentation.screens.pokemons.list
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.ccastro.pokedexapp.presentation.components.SearchingField
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun PokemonListScreen(navHostController: NavHostController) {
 
     Scaffold (
-        topBar = {},
+        topBar = {
+            SearchingField(modifier = Modifier.padding(top = 8.dp))
+        },
         content = {
-                  PokemonListContent(navHostController = navHostController)
+            PokemonListContent(
+                modifier = Modifier.padding(top = 64.dp),
+                navHostController = navHostController
+            )
         },
         bottomBar = {}
     )

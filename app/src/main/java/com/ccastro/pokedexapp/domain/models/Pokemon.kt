@@ -27,7 +27,35 @@ data class Pokemon(
     @Expose @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>,
     // added property for the Spanish flavor text entries
     var spanishFlavorTextEntries: List<String> = emptyList()
+) {
+    fun containTextInName(name: String): Boolean {
+        return this.name.contains(name, true)
+    }
+}
+
+data class PokemonDemo(
+    @Expose @SerializedName("id") val id: Int? = null,
+    @Expose @SerializedName("name") val name: String? = null,
+    @Expose @SerializedName("base_experience") val baseExperience: Int? = null,
+    @Expose @SerializedName("height") val height: Int? = null,
+    @Expose @SerializedName("is_default") val isDefault: Boolean? = null,
+    @Expose @SerializedName("order") val order: Int? = null,
+    @Expose @SerializedName("weight") val weight: Int? = null,
+    @Expose @SerializedName("sprites") val sprites: Sprites? = null,
+    @Expose @SerializedName("abilities") val abilities: List<Ability>? = null,
+    @Expose @SerializedName("forms") val forms: List<Form>? = null,
+    @Expose @SerializedName("game_indices") val gameIndices: List<GameIndex>? = null,
+    @Expose @SerializedName("held_items") val heldItems: List<HeldItem>? = null,
+    @Expose @SerializedName("location_area_encounters") val locationAreaEncounters: String? = null,
+    @Expose @SerializedName("moves") val moves: List<Move>? = null,
+    @Expose @SerializedName("species") val species: Species? = null,
+    @Expose @SerializedName("stats") val stats: List<Stat>? = null,
+    @Expose @SerializedName("types") val types: List<Type>? = null,
+    @Expose @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>? = null,
+    // added property for the Spanish flavor text entries
+    var spanishFlavorTextEntries: List<String>? = null
 )
+
 
 data class FlavorTextEntry(
     @Expose @SerializedName("flavor_text") val flavorText: String,
@@ -39,15 +67,10 @@ data class Sprites(
     @Expose @SerializedName("back_female") val backFemale: String?,
     @Expose @SerializedName("back_shiny") val backShiny: String?,
     @Expose @SerializedName("back_shiny_female") val backShinyFemale: String?,
-    @Expose @SerializedName("front_default") val frontDefault: String?,
+    @Expose @SerializedName("front_default") var frontDefault: String?,
     @Expose @SerializedName("front_female") val frontFemale: String?,
     @Expose @SerializedName("front_shiny") val frontShiny: String?,
     @Expose @SerializedName("front_shiny_female") val frontShinyFemale: String?
-)
-
-data class PokeResult (
-    @Expose @SerializedName("name") val name: String,
-    @Expose @SerializedName("url") val url: String
 )
 
 data class Form(

@@ -1,8 +1,6 @@
 package com.ccastro.pokedexapp.presentation.screens.pokemons.list
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ccastro.pokedexapp.core.Constants.TAG
@@ -14,6 +12,14 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,31 +30,52 @@ class PokemonListViewModel @Inject constructor(
     @Named("PokemonUseCases")val pokemonUseCases: IPokemonUseCases
 ) : ViewModel() {
 
-    val errorMessage = MutableLiveData<Message>()
-    val _pokemonList = MutableLiveData<List<Pokemon>>()
-    val pokemonList: LiveData<List<Pokemon>>
-        get() = _pokemonList
-
-    val loading = MutableLiveData<Boolean>()
     private var job: Job? = null
+
+    private val _searchText = MutableStateFlow("")
+    val searchText = _searchText.asStateFlow()
+
+    private val _errorMessage = MutableStateFlow("")
+    val errorMessage = _errorMessage.asStateFlow()
+
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.i(TAG, "Exception Handled: ${throwable.localizedMessage}")
         viewModelScope.launch(coroutineContext){
             onError("Exception Handled: ${throwable.localizedMessage}")
         }
-
     }
+
+
+    private val _pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
+    val pokemonList = searchText
+        .debounce(500L)
+        .onEach { _loading.value = true }
+        .combine(_pokemonList){ textToSearch, pokemonList ->
+            if(textToSearch.isEmpty()){
+                pokemonList
+            }else {
+                pokemonList.filter { it.containTextInName(textToSearch) }
+            }
+        }
+        .onEach { _loading.value = false }
+        .stateIn(viewModelScope, SharingStarted.Lazily, _pokemonList.value)
+
 
     init {
         getAllPokemons()
     }
+
     private fun getAllPokemons() {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            _loading.update { true }
             val response = pokemonUseCases.getPokemonList()
             withContext(Dispatchers.Main){
                 if (response.isSuccessful) {
-                    _pokemonList.postValue(response.body())
-                    loading.value = false
+                    _pokemonList.update{response.body()?: emptyList()}
+                    _loading.value = false
                 } else {
                   onError("Error: ${response.message()}")
                 }
@@ -57,12 +84,17 @@ class PokemonListViewModel @Inject constructor(
     }
 
     private fun onError(message: Message) {
-        errorMessage.value = message
-        loading.value = false
+        _errorMessage.value = message
+        _loading.value = false
     }
 
     override fun onCleared() {
         super.onCleared()
         job?.cancel()
     }
+
+    fun onSearchTextChange(text: String) {
+        _searchText.value = text
+    }
+
 }
