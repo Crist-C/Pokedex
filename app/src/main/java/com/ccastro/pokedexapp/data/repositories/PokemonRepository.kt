@@ -1,8 +1,6 @@
 package com.ccastro.pokedexapp.data.repositories
 
-import android.util.Log
 import com.ccastro.pokedexapp.core.Constants
-import com.ccastro.pokedexapp.core.Constants.TAG
 import com.ccastro.pokedexapp.data.apis.PokemonsDAO
 import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.domain.repositories.IPokemonRepository

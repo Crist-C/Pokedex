@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastForEachIndexed
 import com.ccastro.pokedexapp.presentation.screens.MoveName
 
@@ -41,31 +40,4 @@ fun Moves(modifier: Modifier = Modifier, moves: List<MoveName>) {
             }
         }
     }
-}
-
-@Composable
-fun ParagraphText(text: String, modifier: Modifier = Modifier, maxLines: Int = 3) {
-
-    var showAllTextLines by remember {
-        mutableStateOf(false)
-    }
-
-    Text(
-        text = text,
-        maxLines = if (showAllTextLines) Int.MAX_VALUE else maxLines,
-        textAlign = TextAlign.Justify,
-        style = MaterialTheme.typography.bodySmall,
-        fontSize = 13.sp,
-        overflow = TextOverflow.Ellipsis,
-        modifier = modifier
-            .fillMaxWidth()
-            .animateContentSize(
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioMediumBouncy,
-                    stiffness = Spring.StiffnessLow
-                )
-            )
-            .clickable { showAllTextLines = !showAllTextLines }
-    )
-
 }

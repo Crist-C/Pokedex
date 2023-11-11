@@ -1,6 +1,5 @@
 package com.ccastro.pokedexapp.presentation.components.pokemons
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.components.images.AsyncImage
-import java.util.Locale
 
 @Composable
 fun PokemonBasicCard(modifier: Modifier = Modifier, pokemon: Pokemon, onClick: (Pokemon) -> Unit = {}) {

@@ -23,7 +23,7 @@ import com.ccastro.pokedexapp.presentation.components.images.ImagesPresentation
 fun Sprites(modifier: Modifier = Modifier) {
     val cardColor = Constants.pokemonChosed.types.first().getColorFromType()
     Card(
-        Modifier
+        modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .shadow(

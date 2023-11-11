@@ -5,8 +5,6 @@ import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Search
@@ -39,8 +37,6 @@ fun SearchingField(modifier: Modifier = Modifier, viewModel: PokemonListViewMode
         maxLines = 1,
         singleLine = true,
         modifier = modifier
-            //.fillMaxWidth()
-            //.padding(start = 32.dp, end = 32.dp, top = 0.dp, bottom = 16.dp)
             .background(Color.Transparent)
             .border(width = 8.dp, color = Blue20),
         placeholder = {

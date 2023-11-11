@@ -105,19 +105,9 @@ data class Form(
     @Expose @SerializedName("url") val url: String
 )
 
-data class GameIndex(
-    @Expose @SerializedName("game_index") val gameIndex: Int,
-    @Expose @SerializedName("version") val version: Version
-)
-
 data class Version(
     @Expose @SerializedName("name") val name: String,
     @Expose @SerializedName("url") val url: String
-)
-
-data class HeldItem(
-    @Expose @SerializedName("item") val item: Item,
-    @Expose @SerializedName("version_details") val versionDetails: List<VersionDetail>
 )
 
 data class Item(
@@ -261,8 +251,8 @@ sealed class PokemonTypes(val typeName: String, val icon: Int, val PokemonColor:
     object Grass: PokemonTypes("grass", R.drawable.electric_icon, PokemonColors.Green)
     object Electric: PokemonTypes("electric", R.drawable.electric_icon, PokemonColors.Yellow)
     object Psychic: PokemonTypes("psychic", R.drawable.electric_icon, PokemonColors.Pink)
-    object Ice: PokemonTypes("ice", R.drawable.electric_icon, PokemonColors.BlueFly)
-    object Dragon: PokemonTypes("dragon", R.drawable.electric_icon, PokemonColors.RedFire)
+    object Ice: PokemonTypes("ice", R.drawable.electric_icon, PokemonColors.BlueIce)
+    object Dragon: PokemonTypes("dragon", R.drawable.electric_icon, PokemonColors.RedDragon)
     object Dark: PokemonTypes("dark", R.drawable.electric_icon, PokemonColors.Black)
     object Fairy: PokemonTypes("fairy", R.drawable.electric_icon, PokemonColors.Pink)
     object Unknown: PokemonTypes("unknown", R.drawable.electric_icon, PokemonColors.White)
