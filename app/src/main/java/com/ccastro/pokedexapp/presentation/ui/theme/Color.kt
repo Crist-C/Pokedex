@@ -2,10 +2,11 @@ package com.ccastro.pokedexapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-
+val Blue20 = Color(0x205A63FD)
 val Blue200 = Color(0xFF5A63FD)
 val GreenVariant40 = Color(0xFFFAFEF3)
 val Blue80 = Color(0xFF6068FC)
+val Blue60 = Color(0x406068FC)
 
 val BlueVariant40 = Color(0xFF0909A2)
 

@@ -27,7 +27,7 @@ class PokemonRepository @Inject constructor(
     override suspend fun getPokemonByName(name: PokemonName): Response<Pokemon> {
         val pokemonReponse = pokemonDao.getPokemonDetail(name)
         val pokemon = pokemonReponse.body()
-        Log.i(TAG, "getPokemonByName: ${pokemon?.name}")
+        //Log.i(TAG, "getPokemonByName: ${pokemon?.name}")
         return pokemonReponse
     }
 
@@ -36,8 +36,9 @@ class PokemonRepository @Inject constructor(
         val pokemonsNames = generationData.body()?.getPokemonsNames()
         val pokemonList : MutableList<Pokemon> = mutableListOf()
 
-        pokemonsNames?.forEach{ pokemonName ->
-            getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
+        pokemonsNames?.forEachIndexed{ iteration, pokemonName ->
+            //if(iteration <= 10)
+                getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
         }
 
         return Response.success(pokemonList)

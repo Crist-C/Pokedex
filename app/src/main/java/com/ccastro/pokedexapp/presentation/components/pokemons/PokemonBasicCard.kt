@@ -1,5 +1,6 @@
 package com.ccastro.pokedexapp.presentation.components.pokemons
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,18 +15,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.components.images.AsyncImage
+import java.util.Locale
 
 @Composable
 fun PokemonBasicCard(modifier: Modifier = Modifier, pokemon: Pokemon, onClick: (Pokemon) -> Unit = {}) {
 
     Surface (
         modifier = Modifier
-            .wrapContentSize().clickable { onClick(pokemon) },
-        shape = MaterialTheme.shapes.large,
-        shadowElevation = 6.dp
+            .wrapContentSize()
+            .clickable { onClick(pokemon) },
+        shape = RoundedCornerShape(topStartPercent = 20, bottomEndPercent = 20),
+        shadowElevation = 6.dp,
+        color = pokemon.types.first().getColorFromType()
     ) {
 
         Column(
@@ -42,7 +47,11 @@ fun PokemonBasicCard(modifier: Modifier = Modifier, pokemon: Pokemon, onClick: (
                     .sizeIn(100.dp,100.dp, 130.dp, 130.dp).clip(RoundedCornerShape(10.dp)),
             )
 
-            Text(text = pokemon.name, style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = pokemon.getNameId(),
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold
+            )
 
         }
     }

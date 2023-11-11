@@ -1,8 +1,9 @@
-package com.ccastro.pokedexapp.presentation.components
+package com.ccastro.pokedexapp.presentation.components.userInteraction
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ccastro.pokedexapp.presentation.screens.pokemons.list.PokemonListViewModel
+import com.ccastro.pokedexapp.presentation.ui.theme.Blue20
 import com.ccastro.pokedexapp.presentation.ui.theme.Blue200
 import com.ccastro.pokedexapp.presentation.ui.theme.Blue80
 
@@ -37,9 +39,10 @@ fun SearchingField(modifier: Modifier = Modifier, viewModel: PokemonListViewMode
         maxLines = 1,
         singleLine = true,
         modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 32.dp, end = 32.dp, top = 0.dp)
-            .background(Color.Transparent),
+            //.fillMaxWidth()
+            //.padding(start = 32.dp, end = 32.dp, top = 0.dp, bottom = 16.dp)
+            .background(Color.Transparent)
+            .border(width = 8.dp, color = Blue20),
         placeholder = {
             Text(text = "Search")
         },

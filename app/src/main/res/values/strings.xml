@@ -3,4 +3,9 @@
     <string name="default_image_description">image async</string>
     <string name="url_default_pokemon_onlist_image">htatps://i.postimg.cc/B6pp2hRs/pokeball-default-Image.png</string>
     <string name="mensaje_no_se_encontro_pokemon">Aún no existe el pokemon con ese nombre</string>
+    <string name="type_icon_content_desc">type icon</string>
+    <string name="information">Information</string>
+    <string name="types">Types</string>
+    <string name="stats">Stats</string>
+    <string name="loading_pokemons">Loading Pokemons!</string>
 </resources>

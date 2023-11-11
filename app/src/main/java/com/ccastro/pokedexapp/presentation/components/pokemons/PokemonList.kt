@@ -3,6 +3,7 @@ package com.ccastro.pokedexapp.presentation.components.pokemons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,17 +20,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.presentation.screens.pokemons.list.PokemonListViewModel
+import com.ccastro.pokedexapp.presentation.ui.theme.Blue20
+import okhttp3.internal.wait
 
 @Composable
 fun ListPokemons(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    viewModel: PokemonListViewModel = hiltViewModel(),
+    pokemons: List<Pokemon>,
     onPokemonClick: (Pokemon) -> Unit = {}
 ) {
 
-    val pokemons by viewModel.pokemonList.collectAsState()
-    val loading by viewModel.loading.collectAsState()
+
 
     LazyVerticalGrid(
         modifier = modifier
@@ -46,16 +48,11 @@ fun ListPokemons(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 24.dp)
     ) {
 
-        if(pokemons.isEmpty() && !loading) {
-            item {
-                PokemonNotFoundScreen()
-            }
-        } else {
-            items(pokemons) { pokemon ->
-                PokemonBasicCard(pokemon = pokemon, modifier = Modifier.fillMaxWidth()) {
-                    pokemon: Pokemon -> onPokemonClick(pokemon)
-                }
+        items(pokemons) { pokemon ->
+            PokemonBasicCard(pokemon = pokemon, modifier = Modifier.fillMaxWidth()) {
+                pokemon: Pokemon -> onPokemonClick(pokemon)
             }
         }
+
     }
 }

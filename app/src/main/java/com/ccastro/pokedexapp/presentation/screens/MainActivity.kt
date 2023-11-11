@@ -21,6 +21,11 @@ typealias PokemonId = Int
 typealias GenerationNumber = Int
 typealias Message = String
 typealias ImageUrl = String
+typealias AttributeName = String
+typealias AttributeContent = List<String>
+typealias StatName = String
+typealias StatValue = Int
+typealias MoveName = String
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
