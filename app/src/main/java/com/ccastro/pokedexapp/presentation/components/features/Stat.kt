@@ -1,4 +1,4 @@
-package com.ccastro.pokedexapp.presentation.components.pokemons
+package com.ccastro.pokedexapp.presentation.components.features
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.border
@@ -25,7 +25,7 @@ import com.ccastro.pokedexapp.domain.models.Pokemon
 @Composable
 fun PokemonStatList(modifier: Modifier = Modifier, statMap: Map<String, Int>) {
     statMap.entries.toList().forEach {
-        PokemonStat(stat = it.toPair())
+        PokemonStat(modifier = modifier, stat = it.toPair())
     }
 }
 
@@ -44,7 +44,7 @@ fun PokemonStat(modifier: Modifier = Modifier, stat: Pair<String, Int>) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = stat.first.uppercase(),
+            text = stat.first.lowercase(),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )

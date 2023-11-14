@@ -8,4 +8,6 @@
     <string name="types">Types</string>
     <string name="stats">Stats</string>
     <string name="loading_pokemons">Loading Pokemons!</string>
+    <string name="moves">Moves</string>
+    <string name="generation">Generation %1$s</string>
 </resources>

@@ -17,7 +17,9 @@
         <activity
             android:name=".presentation.screens.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.PokedexApp">
+            android:theme="@style/Theme.PokedexApp"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

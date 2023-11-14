@@ -24,8 +24,6 @@ fun ListPokemons(
     onPokemonClick: (Pokemon) -> Unit = {}
 ) {
 
-
-
     LazyVerticalGrid(
         modifier = modifier
             .fillMaxSize()
@@ -41,8 +39,8 @@ fun ListPokemons(
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 24.dp)
     ) {
 
-        items(pokemons) { pokemon ->
-            PokemonBasicCard(pokemon = pokemon, modifier = Modifier.fillMaxWidth()) {
+        items(pokemons) { pokemonItem ->
+            PokemonBasicCard(pokemon = pokemonItem, modifier = Modifier.fillMaxWidth()) {
                 pokemon: Pokemon -> onPokemonClick(pokemon)
             }
         }
