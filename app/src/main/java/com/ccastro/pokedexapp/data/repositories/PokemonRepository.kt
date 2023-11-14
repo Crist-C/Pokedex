@@ -1,8 +1,6 @@
 package com.ccastro.pokedexapp.data.repositories
 
-import android.util.Log
 import com.ccastro.pokedexapp.core.Constants
-import com.ccastro.pokedexapp.core.Constants.TAG
 import com.ccastro.pokedexapp.data.apis.PokemonsDAO
 import com.ccastro.pokedexapp.domain.models.Pokemon
 import com.ccastro.pokedexapp.domain.repositories.IPokemonRepository
@@ -32,16 +30,11 @@ class PokemonRepository @Inject constructor(
         val generationData = pokemonDao.getGenerationList(generation)
         val pokemonsNames = generationData.body()?.getPokemonsNames()
         val pokemonList : MutableList<Pokemon> = mutableListOf()
-/*
+
         pokemonsNames?.forEach { pokemonName ->
             getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
         }
 
- */
-        pokemonsNames?.forEachIndexed{ iteration, pokemonName ->
-            if(iteration <= 10)
-                getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
-        }
         return Response.success(pokemonList)
     }
 
