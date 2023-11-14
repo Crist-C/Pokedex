@@ -110,16 +110,6 @@ data class Version(
     @Expose @SerializedName("url") val url: String
 )
 
-data class Item(
-    @Expose @SerializedName("name") val name: String,
-    @Expose @SerializedName("url") val url: String
-)
-
-data class VersionDetail(
-    @Expose @SerializedName("rarity") val rarity: Int,
-    @Expose @SerializedName("version") val version: Version
-)
-
 data class Move(
     @Expose @SerializedName("move") val move: MoveInfo,
     @Expose @SerializedName("version_group_details") val versionGroupDetails: List<VersionGroupDetail>
