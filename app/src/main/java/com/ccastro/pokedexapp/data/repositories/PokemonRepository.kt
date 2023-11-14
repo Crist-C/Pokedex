@@ -30,16 +30,11 @@ class PokemonRepository @Inject constructor(
         val generationData = pokemonDao.getGenerationList(generation)
         val pokemonsNames = generationData.body()?.getPokemonsNames()
         val pokemonList : MutableList<Pokemon> = mutableListOf()
-/*
+
         pokemonsNames?.forEach { pokemonName ->
             getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
         }
 
- */
-        pokemonsNames?.forEachIndexed{ iteration, pokemonName ->
-            if(iteration <= 10)
-                getPokemonByName(pokemonName).body()?.let { pokemonList.add(it) }
-        }
         return Response.success(pokemonList)
     }
 
