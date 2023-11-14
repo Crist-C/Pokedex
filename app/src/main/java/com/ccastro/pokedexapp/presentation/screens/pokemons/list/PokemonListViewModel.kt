@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
@@ -35,9 +37,9 @@ class PokemonListViewModel @Inject constructor(
 ) : ViewModel() {
 
     // ----------- Declaración e inicialización de variables -------------- //
-    private var job: Job? = null
 
-    var firstPokemonLoad = true
+    private var job: Job? = null
+    private var isFirstTime = true
 
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
@@ -57,22 +59,19 @@ class PokemonListViewModel @Inject constructor(
 
     private val _pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
 
-    @OptIn(FlowPreview::class)
+
     val pokemonList = searchText
-        .debounce(300L)
-        .onEach {
-            _loading.value = true
-        }
+        .debounce(500L)
         .combine(_pokemonList){ textToSearch, pokemonList ->
             if(textToSearch.isEmpty()){
                 pokemonList
             }else {
                 pokemonList.filter { it.containTextInName(textToSearch) }
             }
-        }
-        .debounce(500L)
-        .onEach {
-            _loading.value =  false
+        }.onEach {
+            _errorMessage.value =
+                if(it.isEmpty() && !isFirstTime) "Pokemon not found!"
+                else ""
         }
         .stateIn(viewModelScope, SharingStarted.Lazily, _pokemonList.value)
 
@@ -86,14 +85,17 @@ class PokemonListViewModel @Inject constructor(
     // ----------- Coroutines -------------- //
     fun getAllPokemons(generation: GenerationNumber = 1) {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+
             _loading.update { true }
+
             val response = pokemonUseCases.getPokemonList(generation)
             withContext(Dispatchers.Main){
+
                 if (response.isSuccessful) {
+                    onError("")
                     _pokemonList.update{response.body()?: emptyList()}
-                    _loading.value = false
                 } else {
-                  onError("Error: ${response.message()}")
+                  onError("Error: Pokemons couldn't be loaded\ntry it again!")
                 }
             }
         }
@@ -104,6 +106,7 @@ class PokemonListViewModel @Inject constructor(
     private fun onError(message: Message) {
         _errorMessage.value = message
         _loading.value = false
+        isFirstTime = false
     }
 
     override fun onCleared() {
@@ -114,10 +117,6 @@ class PokemonListViewModel @Inject constructor(
     // ----------- Métodos para actualización de variables -------------- //
     fun onSearchTextChange(text: String) {
         _searchText.value = text
-    }
-
-    fun updateFirstLoad(value: Boolean) {
-        firstPokemonLoad = value
     }
 
 }

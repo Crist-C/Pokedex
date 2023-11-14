@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,9 +21,7 @@ import com.ccastro.pokedexapp.presentation.screens.pokemons.list.PokemonListView
 import com.ccastro.pokedexapp.presentation.ui.theme.PokedexAppTheme
 
 @Composable
-fun PokemonNotFoundScreen(modifier: Modifier = Modifier, viewModel: PokemonListViewModel = hiltViewModel()) {
-
-    val message by viewModel.errorMessage.collectAsState()
+fun PokemonErrorMessageScreen(modifier: Modifier = Modifier, message: String) {
 
     Column(
         modifier = modifier.fillMaxWidth().fillMaxHeight(),
@@ -30,18 +29,19 @@ fun PokemonNotFoundScreen(modifier: Modifier = Modifier, viewModel: PokemonListV
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             text = message,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineSmall
         )
     }
 }
 
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PokemonNotFoundScreenPreview() {
     PokedexAppTheme {
-        PokemonNotFoundScreen()
+        PokemonErrorMessageScreen(message = "Pokemon not found!")
     }
 }
